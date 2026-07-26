@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>MiniMarket - Gestión de Clientes</title>
+
+    <link rel="stylesheet" href="/css/estilos.css">
+
+</head>
+
+<body>
+
+    <div class="contenedor">
+
+        <!-- MENÚ LATERAL -->
+
+        <aside class="menu">
+
+            <h2 class="logo">
+
+            🛒 MiniMarket
+
+            </h2>
+
+            <p class="version">
+
+            Versión 1.0
+
+            </p>
+
+            <ul>
+
+                <li><a href="/">🏠 Dashboard</a></li>
+                <li><a href="/productos">📦 Productos</a></li>
+                <li class="activo"><a href="/clientes">👥 Clientes</a></li>
+                <li><a href="/empleados">👨‍💼 Empleados</a></li>
+                <li><a href="/inventario">📋 Inventario</a></li>
+                <li><a href="/ventas">🧾 Ventas</a></li>
+                <li><a href="/detalleventa">📄 Detalle Venta</a></li>
+
+            </ul>
+
+        </aside>
+
+        <!-- CONTENIDO -->
+
+        <main class="contenido">
+
+            <header class="encabezado">
+
+                <div>
+
+                    <h1>Sistema de Minimarket</h1>
+
+                    <p>Panel Administrativo</p>
+
+                </div>
+
+                    <div class="infoUsuario">
+
+                    <span id="fechaHora"></span>
+
+                    <div class="usuario">
+
+                        👤 Administrador
+
+                    </div>
+
+                </div>
+
+            </header>
+
+            <h2>Gestión de Clientes</h2>
+
+            <form id="formCliente">
+
+                <input type="hidden" id="idCliente">
+
+                <input
+                    type="text"
+                    id="nombre"
+                    placeholder="Nombre del cliente"
+                    required>
+
+                <input
+                    type="text"
+                    id="telefono"
+                    placeholder="Teléfono">
+
+                <button type="submit">
+
+                    Guardar Cliente
+
+                </button>
+
+            </form>
+
+            <hr>
+
+            <h2>Listado de Clientes</h2>
+
+            <input
+                type="text"
+                id="buscar"
+                placeholder="Buscar cliente..."
+                onkeyup="filtrarClientes()">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Teléfono</th>
+                        <th>Puntos</th>
+                        <th>Acciones</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody id="tablaClientes">
+
+                </tbody>
+
+            </table>
+
+        </main>
+
+    </div>
+
+    <script src="/js/clientes.js"></script>
+
+</body>
+
+</html>

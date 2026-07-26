@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <title>Empleados</title>
+
+    <link rel="stylesheet" href="/css/estilos.css">
+
+</head>
+
+<body>
+
+<div class="contenedor">
+
+    <aside class="menu">
+
+        <h2 class="logo">🛒 MiniMarket</h2>
+
+        <p class="version">Versión 1.0</p>
+
+        <ul>
+
+            <li><a href="/">🏠 Dashboard</a></li>
+            <li><a href="/productos">📦 Productos</a></li>
+            <li><a href="/clientes">👥 Clientes</a></li>
+            <li class="activo"><a href="/empleados">👨‍💼 Empleados</a></li>
+            <li><a href="/inventario">📋 Inventario</a></li>
+            <li><a href="/ventas">🧾 Ventas</a></li>
+            <li><a href="/detalleventa">📄 Detalle Venta</a></li>
+
+        </ul>
+
+    </aside>
+
+    <main class="contenido">
+
+        <header class="encabezado">
+
+            <div>
+
+                <h1>Sistema de Minimarket</h1>
+
+                <p>Gestión de Empleados</p>
+
+            </div>
+
+            <div class="infoUsuario">
+
+                <span id="fechaHora"></span>
+
+                <div class="usuario">
+
+                    👤 Administrador
+
+                </div>
+
+            </div>
+
+        </header>
+
+        <form id="formEmpleado">
+
+            <input type="hidden" id="idEmpleado">
+
+            <input
+                type="text"
+                id="nombre"
+                placeholder="Nombre"
+                required
+            >
+
+            <input
+                type="text"
+                id="rol"
+                placeholder="Rol"
+                required
+            >
+
+            <input
+                type="text"
+                id="usuario"
+                placeholder="Usuario"
+                required
+            >
+
+            <input
+                type="password"
+                id="password"
+                placeholder="Contraseña"
+                required
+            >
+
+            <button type="submit">
+
+                Guardar Empleado
+
+            </button>
+
+        </form>
+
+        <br>
+
+        <input
+            type="text"
+            id="buscar"
+            placeholder="Buscar empleado..."
+        >
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>ID</th>
+
+                    <th>Nombre</th>
+
+                    <th>Rol</th>
+
+                    <th>Usuario</th>
+
+                    <th>Acciones</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody id="tablaEmpleados">
+
+            </tbody>
+
+        </table>
+
+    </main>
+
+</div>
+
+<script src="/js/empleados.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <title>Ventas</title>
+
+    <link rel="stylesheet" href="/css/estilos.css">
+
+</head>
+
+<body>
+
+<div class="contenedor">
+
+    <aside class="menu">
+
+        <h2 class="logo">🛒 MiniMarket</h2>
+
+        <p class="version">Versión 1.0</p>
+
+        <ul>
+
+            <li><a href="/">🏠 Dashboard</a></li>
+            <li><a href="/productos">📦 Productos</a></li>
+            <li><a href="/clientes">👥 Clientes</a></li>
+            <li><a href="/empleados">👨‍💼 Empleados</a></li>
+            <li><a href="/inventario">📋 Inventario</a></li>
+            <li class="activo"><a href="/ventas">🧾 Ventas</a></li>
+            <li><a href="/detalleventa">📄 Detalle Venta</a></li>
+
+        </ul>
+
+    </aside>
+
+    <main class="contenido">
+
+        <header class="encabezado">
+
+            <div>
+
+                <h1>Sistema de Minimarket</h1>
+
+                <p>Registro de Ventas</p>
+
+            </div>
+
+            <div class="infoUsuario">
+
+                <span id="fechaHora"></span>
+
+                <div class="usuario">
+
+                    👤 Administrador
+
+                </div>
+
+            </div>
+
+        </header>
+
+        <div class="formulario">
+
+            <select id="cliente" required>
+
+                <option value="">Seleccione un cliente</option>
+
+            </select>
+
+            <select id="empleado" required>
+
+                <option value="">Seleccione un empleado</option>
+
+            </select>
+
+            <select id="producto">
+
+                <option value="">Seleccione un producto</option>
+
+            </select>
+
+            <input
+                type="number"
+                id="cantidad"
+                min="1"
+                value="1">
+
+            <button id="agregarProducto">
+
+                Agregar Producto
+
+            </button>
+
+        </div>
+
+        <br>
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>Producto</th>
+
+                    <th>Precio</th>
+
+                    <th>Cantidad</th>
+
+                    <th>Subtotal</th>
+
+                    <th>Acción</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody id="detalleVenta">
+
+            </tbody>
+
+        </table>
+
+        <br>
+
+        <div class="total">
+
+            <h2>
+
+                Total: $
+
+                <span id="totalVenta">
+
+                    0.00
+
+                </span>
+
+            </h2>
+
+        </div>
+
+        <br>
+
+        <select id="metodoPago">
+
+            <option>Efectivo</option>
+
+            <option>Tarjeta</option>
+
+            <option>Transferencia</option>
+
+            <option>Nequi</option>
+
+            <option>Daviplata</option>
+
+        </select>
+
+        <button id="guardarVenta">
+
+            Registrar Venta
+
+        </button>
+
+    </main>
+
+</div>
+
+<script src="/js/ventas.js"></script>
+
+</body>
+
+</html>

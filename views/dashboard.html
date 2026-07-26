@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+
+    <meta charset="UTF-8">
+
+    <title>Dashboard</title>
+
+    <link rel="stylesheet" href="/css/estilos.css">
+
+</head>
+
+<body>
+
+<div class="contenedor">
+
+    <aside class="menu">
+
+        <h2 class="logo">🛒 MiniMarket</h2>
+
+        <p class="version">Versión 1.0</p>
+
+        <ul>
+
+            <li class="activo"><a href="/">🏠 Dashboard</a></li>
+            <li><a href="/productos">📦 Productos</a></li>
+            <li><a href="/clientes">👥 Clientes</a></li>
+            <li><a href="/empleados">👨‍💼 Empleados</a></li>
+            <li><a href="/inventario">📋 Inventario</a></li>
+            <li><a href="/ventas">🧾 Ventas</a></li>
+            <li><a href="/detalleventa">📄 Detalle Venta</a></li>
+
+        </ul>
+
+    </aside>
+
+    <main class="contenido">
+
+        <header class="encabezado">
+
+            <div>
+
+                <h1>Sistema de Minimarket</h1>
+
+                <p>Panel Administrativo</p>
+
+            </div>
+
+            <div class="infoUsuario">
+
+                <span id="fechaHora"></span>
+
+                <div class="usuario">
+
+                    👤 Administrador
+
+                </div>
+
+            </div>
+
+        </header>
+
+        <h2>Bienvenido</h2>
+
+        <div class="cards">
+
+            <a class="card" href="/productos">
+                📦
+                <h3>Productos</h3>
+                <h2 id="totalProductos">0</h2>
+            </a>
+
+            <a class="card" href="/clientes">
+                👥
+                <h3>Clientes</h3>
+                <h2 id="totalClientes">0</h2>
+            </a>
+
+            <a class="card" href="/empleados">
+
+                👨‍💼
+
+                <h3>Empleados</h3>
+
+                <h2 id="totalEmpleados">0</h2>
+
+            </a>
+            <a class="card" href="/inventario">
+
+                📋
+
+                <h3>Inventario</h3>
+
+                <h2 id="totalInventario">0</h2>
+
+            </a>
+
+            <a class="card" href="/ventas">
+                🧾
+                <h3>Ventas</h3>
+                <h2 id="totalVentas">0</h2>
+            </a>
+
+            <a class="card" href="/detalleventa">
+                📄
+                <h3>Detalle Venta</h3>
+                <p>Consultar</p>
+            </a>
+
+        </div>
+
+    </main>
+
+</div>
+
+<script src="/js/dashboard.js"></script>
+
+</body>
+</html>

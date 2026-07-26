@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <title>Inventario</title>
+
+    <link rel="stylesheet" href="/css/estilos.css">
+
+</head>
+
+<body>
+
+<div class="contenedor">
+
+    <aside class="menu">
+
+        <h2 class="logo">🛒 MiniMarket</h2>
+
+        <p class="version">Versión 1.0</p>
+
+        <ul>
+
+            <li><a href="/">🏠 Dashboard</a></li>
+            <li><a href="/productos">📦 Productos</a></li>
+            <li><a href="/clientes">👥 Clientes</a></li>
+            <li><a href="/empleados">👨‍💼 Empleados</a></li>
+            <li><a href="/inventario">📋 Inventario</a></li>
+            <li><a href="/ventas">🧾 Ventas</a></li>
+            <li><a href="/detalleventa">📄 Detalle Venta</a></li>
+
+        </ul>
+
+    </aside>
+
+    <main class="contenido">
+
+        <header class="encabezado">
+
+            <div>
+
+                <h1>Sistema de Minimarket</h1>
+
+                <p>Gestión de Inventario</p>
+
+            </div>
+
+            <div class="infoUsuario">
+
+                <span id="fechaHora"></span>
+
+                <div class="usuario">
+
+                    👤 Administrador
+
+                </div>
+
+            </div>
+
+        </header>
+
+        <form id="formInventario">
+
+            <input type="hidden" id="idInventario">
+
+            <select id="idProducto" required>
+
+                <option value="">Seleccione un producto</option>
+
+            </select>
+
+            <input
+                type="text"
+                id="ubicacion"
+                placeholder="Ubicación"
+                required>
+
+            <input
+                type="number"
+                id="stockActual"
+                placeholder="Stock Actual"
+                required>
+
+            <input
+                type="number"
+                id="stockMinimo"
+                placeholder="Stock Mínimo"
+                required>
+
+            <button type="submit">
+
+                Guardar Inventario
+
+            </button>
+
+        </form>
+
+        <br>
+
+        <input
+            type="text"
+            id="buscar"
+            placeholder="Buscar producto o ubicación..."
+        >
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>Producto</th>
+
+                    <th>Ubicación</th>
+
+                    <th>Stock</th>
+
+                    <th>Mínimo</th>
+
+                    <th>Estado</th>
+
+                    <th>Acciones</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody id="tablaInventario">
+
+            </tbody>
+
+        </table>
+
+    </main>
+
+</div>
+
+<script src="/js/inventario.js"></script>
+
+</body>
+
+</html>
