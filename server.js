@@ -2,58 +2,76 @@ require("./config/database");
 
 const express = require("express");
 const cors = require("cors");
+const session = require("express-session");
 const path = require("path");
+
+const verificarSesion = require("./middlewares/auth");
 
 const app = express();
 
+// Middleware
 app.use(cors());
 app.use(express.json());
 
-// Archivos estáticos
+app.use(session({
+    secret: "minimarket",
+    resave: false,
+    saveUninitialized: false
+}));
+
+// Archivos públicos
 app.use(express.static("public"));
 
-// Rutas
+// API
 app.use("/api/productos", require("./routes/productoRoutes"));
 app.use("/api/clientes", require("./routes/clienteRoutes"));
 app.use("/api/empleados", require("./routes/empleadoRoutes"));
 app.use("/api/dashboard", require("./routes/dashboardRoutes"));
 app.use("/api/inventario", require("./routes/inventarioRoutes"));
 app.use("/api/ventas", require("./routes/ventaRoutes"));
-app.use("/api/detalleventa",require("./routes/detalleVentaRoutes"));
+app.use("/api/detalleventa", require("./routes/detalleVentaRoutes"));
 
-// Página principal
+// Login
+app.use("/login", require("./routes/loginRoutes"));
+
+// Página inicial
 app.get("/", (req, res) => {
+    res.sendFile(path.join(__dirname, "views", "login.html"));
+});
+
+// Dashboard
+app.get("/dashboard", verificarSesion, (req, res) => {
     res.sendFile(path.join(__dirname, "views", "dashboard.html"));
 });
 
-app.get("/productos", (req, res) => {
+// Productos
+app.get("/productos", verificarSesion, (req, res) => {
     res.sendFile(path.join(__dirname, "views", "productos.html"));
 });
 
-app.get("/clientes", (req, res) => {
+// Clientes
+app.get("/clientes", verificarSesion, (req, res) => {
     res.sendFile(path.join(__dirname, "views", "clientes.html"));
 });
 
-app.get("/empleados", (req, res) => {
+// Empleados
+app.get("/empleados", verificarSesion, (req, res) => {
     res.sendFile(path.join(__dirname, "views", "empleados.html"));
 });
 
-app.get("/inventario", (req, res) => {
-
+// Inventario
+app.get("/inventario", verificarSesion, (req, res) => {
     res.sendFile(path.join(__dirname, "views", "inventario.html"));
-
 });
 
-app.get("/ventas", (req, res) => {
-
+// Ventas
+app.get("/ventas", verificarSesion, (req, res) => {
     res.sendFile(path.join(__dirname, "views", "ventas.html"));
-
 });
 
-app.get("/detalleventa",(req,res)=>{
-
-    res.sendFile(path.join(__dirname,"views","detalleVenta.html"));
-
+// Detalle de venta
+app.get("/detalleventa", verificarSesion, (req, res) => {
+    res.sendFile(path.join(__dirname, "views", "detalleVenta.html"));
 });
 
 const PUERTO = 3000;

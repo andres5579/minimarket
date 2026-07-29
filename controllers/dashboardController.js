@@ -4,31 +4,39 @@ exports.estadisticas = (req, res) => {
 
     const datos = {};
 
-    db.query("SELECT COUNT(*) total FROM producto", (err, productos) => {
+    db.query("SELECT COUNT(*) AS total FROM producto", (err, productos) => {
 
         if (err) return res.status(500).json(err);
 
         datos.productos = productos[0].total;
 
-        db.query("SELECT COUNT(*) total FROM cliente", (err, clientes) => {
+        db.query("SELECT COUNT(*) AS total FROM cliente", (err, clientes) => {
 
             if (err) return res.status(500).json(err);
 
             datos.clientes = clientes[0].total;
 
-            db.query("SELECT COUNT(*) total FROM empleado", (err, empleados) => {
+            db.query("SELECT COUNT(*) AS total FROM empleado", (err, empleados) => {
 
                 if (err) return res.status(500).json(err);
 
                 datos.empleados = empleados[0].total;
 
-                db.query("SELECT COUNT(*) total FROM inventario", (err, inventario) => {
+                db.query("SELECT COUNT(*) AS total FROM inventario", (err, inventario) => {
 
                     if (err) return res.status(500).json(err);
 
                     datos.inventario = inventario[0].total;
 
-                    res.json(datos);
+                    db.query("SELECT COUNT(*) AS total FROM venta", (err, ventas) => {
+
+                        if (err) return res.status(500).json(err);
+
+                        datos.ventas = ventas[0].total;
+
+                        res.json(datos);
+
+                    });
 
                 });
 
