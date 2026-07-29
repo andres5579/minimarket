@@ -1,8 +1,11 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
 
     <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Dashboard</title>
 
@@ -22,13 +25,37 @@
 
         <ul>
 
-            <li class="activo"><a href="/">🏠 Dashboard</a></li>
-            <li><a href="/productos">📦 Productos</a></li>
-            <li><a href="/clientes">👥 Clientes</a></li>
-            <li><a href="/empleados">👨‍💼 Empleados</a></li>
-            <li><a href="/inventario">📋 Inventario</a></li>
-            <li><a href="/ventas">🧾 Ventas</a></li>
-            <li><a href="/detalleventa">📄 Detalle Venta</a></li>
+            <li class="activo">
+                <a href="/dashboard">🏠 Dashboard</a>
+            </li>
+
+            <li>
+                <a href="/productos">📦 Productos</a>
+            </li>
+
+            <li>
+                <a href="/clientes">👥 Clientes</a>
+            </li>
+
+            <li>
+                <a href="/empleados">👨‍💼 Empleados</a>
+            </li>
+
+            <li>
+                <a href="/inventario">📋 Inventario</a>
+            </li>
+
+            <li>
+                <a href="/ventas">🧾 Ventas</a>
+            </li>
+
+            <li>
+                <a href="/detalleventa">📄 Detalle Venta</a>
+            </li>
+
+            <li>
+                <a href="/login/logout">🚪 Cerrar sesión</a>
+            </li>
 
         </ul>
 
@@ -52,7 +79,7 @@
 
                 <div class="usuario">
 
-                    👤 Administrador
+                    👤 <span id="nombreUsuario">Administrador</span>
 
                 </div>
 
@@ -60,20 +87,28 @@
 
         </header>
 
-        <h2>Bienvenido</h2>
+        <h2>Bienvenido al sistema</h2>
 
         <div class="cards">
 
             <a class="card" href="/productos">
+
                 📦
+
                 <h3>Productos</h3>
+
                 <h2 id="totalProductos">0</h2>
+
             </a>
 
             <a class="card" href="/clientes">
+
                 👥
+
                 <h3>Clientes</h3>
+
                 <h2 id="totalClientes">0</h2>
+
             </a>
 
             <a class="card" href="/empleados">
@@ -85,6 +120,7 @@
                 <h2 id="totalEmpleados">0</h2>
 
             </a>
+
             <a class="card" href="/inventario">
 
                 📋
@@ -96,15 +132,23 @@
             </a>
 
             <a class="card" href="/ventas">
+
                 🧾
+
                 <h3>Ventas</h3>
+
                 <h2 id="totalVentas">0</h2>
+
             </a>
 
             <a class="card" href="/detalleventa">
+
                 📄
+
                 <h3>Detalle Venta</h3>
+
                 <p>Consultar</p>
+
             </a>
 
         </div>
@@ -116,4 +160,5 @@
 <script src="/js/dashboard.js"></script>
 
 </body>
+
 </html>

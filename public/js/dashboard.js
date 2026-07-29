@@ -1,19 +1,47 @@
 async function cargarDashboard() {
 
-    const respuesta = await fetch("/api/dashboard");
+    try {
 
-    const datos = await respuesta.json();
+        // Verificar la sesión del usuario
+        const respuestaUsuario = await fetch("/login/usuario");
 
-    document.getElementById("totalProductos").innerHTML = datos.productos;
+        if (!respuestaUsuario.ok) {
+            window.location = "/";
+            return;
+        }
 
-    document.getElementById("totalClientes").innerHTML = datos.clientes;
+        const usuario = await respuestaUsuario.json();
 
-    document.getElementById("totalEmpleados").innerHTML = datos.empleados;
-    document.getElementById("totalInventario").innerHTML = datos.inventario;
+        document.getElementById("nombreUsuario").innerHTML = usuario.nombre;
+
+        // Cargar estadísticas del dashboard
+        const respuesta = await fetch("/api/dashboard");
+
+        const datos = await respuesta.json();
+
+        document.getElementById("totalProductos").innerHTML = datos.productos;
+
+        document.getElementById("totalClientes").innerHTML = datos.clientes;
+
+        document.getElementById("totalEmpleados").innerHTML = datos.empleados;
+
+        document.getElementById("totalInventario").innerHTML = datos.inventario;
+
+        if (document.getElementById("totalVentas")) {
+            document.getElementById("totalVentas").innerHTML = datos.ventas ?? 0;
+        }
+
+    } catch (error) {
+
+        console.error("Error al cargar el dashboard:", error);
+
+        window.location = "/";
+
+    }
 
 }
 
-function actualizarFechaHora(){
+function actualizarFechaHora() {
 
     const ahora = new Date();
 
@@ -24,7 +52,7 @@ function actualizarFechaHora(){
 
 }
 
-setInterval(actualizarFechaHora,1000);
+setInterval(actualizarFechaHora, 1000);
 
 actualizarFechaHora();
 
