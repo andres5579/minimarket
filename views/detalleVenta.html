@@ -7,7 +7,7 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Minimarket - Detalle de Ventas</title>
+    <title>MiniMarket | Detalle de Ventas</title>
 
     <link rel="stylesheet" href="/css/estilos.css">
 
@@ -17,31 +17,47 @@
 
 <div class="contenedor">
 
-    <!-- MENÚ LATERAL -->
+    <!-- MENÚ -->
 
     <aside class="menu">
 
-        <h2 class="logo">
+        <h2 class="logo">🛒 MiniMarket</h2>
 
-            🛒 MiniMarket
-
-        </h2>
-
-        <p class="version">
-
-            Versión 1.0
-
-        </p>
+        <p class="version">Versión 2.1</p>
 
         <ul>
 
-            <li><a href="/">🏠 Dashboard</a></li>
-            <li><a href="/productos">📦 Productos</a></li>
-            <li><a href="/clientes">👥 Clientes</a></li>
-            <li><a href="/empleados">👨‍💼 Empleados</a></li>
-            <li><a href="/inventario">📋 Inventario</a></li>
-            <li><a href="/ventas">🧾 Ventas</a></li>
-            <li class="activo"><a href="/detalleventa">📄 Detalle Venta</a></li>
+            <li>
+                <a href="/dashboard">🏠 Dashboard</a>
+            </li>
+
+            <li>
+                <a href="/productos">📦 Productos</a>
+            </li>
+
+            <li id="menuClientes">
+                <a href="/clientes">👥 Clientes</a>
+            </li>
+
+            <li id="menuEmpleados">
+                <a href="/empleados">👨‍💼 Empleados</a>
+            </li>
+
+            <li id="menuInventario">
+                <a href="/inventario">📋 Inventario</a>
+            </li>
+
+            <li id="menuVentas">
+                <a href="/ventas">🧾 Ventas</a>
+            </li>
+
+            <li class="activo">
+                <a href="/detalleventa">📄 Detalle Venta</a>
+            </li>
+
+            <li>
+                <a href="/login/logout">🚪 Cerrar sesión</a>
+            </li>
 
         </ul>
 
@@ -55,9 +71,9 @@
 
             <div>
 
-                <h1>Sistema de Minimarket</h1>
+                <h1>Sistema de Gestión MiniMarket</h1>
 
-                <p>Panel Administrativo</p>
+                <p>Detalle de Ventas</p>
 
             </div>
 
@@ -67,7 +83,13 @@
 
                 <div class="usuario">
 
-                    👤 Administrador
+                    👤 <strong id="nombreUsuario"></strong>
+
+                </div>
+
+                <div class="usuario" style="margin-top:10px;">
+
+                    🔐 <span id="rolUsuario"></span>
 
                 </div>
 
@@ -108,7 +130,37 @@
 
 </div>
 
+<script src="/js/sesion.js"></script>
 <script src="/js/detalleVenta.js"></script>
+
+<script>
+
+function actualizarFechaHora(){
+
+    const ahora = new Date();
+
+    const opciones = {
+
+        weekday:"long",
+        year:"numeric",
+        month:"long",
+        day:"numeric",
+        hour:"2-digit",
+        minute:"2-digit",
+        second:"2-digit"
+
+    };
+
+    document.getElementById("fechaHora").innerHTML =
+        ahora.toLocaleDateString("es-CO", opciones);
+
+}
+
+actualizarFechaHora();
+
+setInterval(actualizarFechaHora,1000);
+
+</script>
 
 </body>
 

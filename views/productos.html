@@ -7,7 +7,7 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Minimarket - Gestión de Productos</title>
+    <title>MiniMarket | Gestión de Productos</title>
 
     <link rel="stylesheet" href="/css/estilos.css">
 
@@ -15,156 +15,209 @@
 
 <body>
 
-    <div class="contenedor">
+<div class="contenedor">
 
-        <!-- MENÚ LATERAL -->
+    <!-- MENÚ -->
 
-        <aside class="menu">
+    <aside class="menu">
 
-            <h2 class="logo">
+        <h2 class="logo">🛒 MiniMarket</h2>
 
-            🛒 MiniMarket
+        <p class="version">Versión 2.1</p>
 
-            </h2>
+        <ul>
 
-            <p class="version">
+            <li>
+                <a href="/dashboard">🏠 Dashboard</a>
+            </li>
 
-            Versión 1.0
+            <li class="activo">
+                <a href="/productos">📦 Productos</a>
+            </li>
 
-            </p>
+            <li id="menuClientes">
+                <a href="/clientes">👥 Clientes</a>
+            </li>
 
-            <ul>
+            <li id="menuEmpleados">
+                <a href="/empleados">👨‍💼 Empleados</a>
+            </li>
 
-                <li><a href="/">🏠 Dashboard</a></li>
-                <li class="activo"><a href="/productos">📦 Productos</a></li>
-                <li><a href="/clientes">👥 Clientes</a></li>
-                <li><a href="/empleados">👨‍💼 Empleados</a></li>
-                <li><a href="/inventario">📋 Inventario</a></li>
-                <li><a href="/ventas">🧾 Ventas</a></li>
-                <li><a href="/detalleventa">📄 Detalle Venta</a></li>
+            <li id="menuInventario">
+                <a href="/inventario">📋 Inventario</a>
+            </li>
 
-            </ul>
+            <li id="menuVentas">
+                <a href="/ventas">🧾 Ventas</a>
+            </li>
 
-        </aside>
+            <li id="menuDetalleVenta">
+                <a href="/detalleventa">📄 Detalle Venta</a>
+            </li>
 
-        <!-- CONTENIDO -->
+            <li>
+                <a href="/login/logout">🚪 Cerrar sesión</a>
+            </li>
 
-        <main class="contenido">
+        </ul>
 
-            <header class="encabezado">
+    </aside>
 
-                <div>
+    <!-- CONTENIDO -->
 
-                    <h1>Sistema de Minimarket</h1>
+    <main class="contenido">
 
-                    <p>Panel Administrativo</p>
+        <header class="encabezado">
+
+            <div>
+
+                <h1>Sistema de Gestión MiniMarket</h1>
+
+                <p>Panel Administrativo</p>
+
+            </div>
+
+            <div class="infoUsuario">
+
+                <span id="fechaHora"></span>
+
+                <div class="usuario">
+
+                    👤 <strong id="nombreUsuario"></strong>
 
                 </div>
 
-                <div class="infoUsuario">
+                <div class="usuario" style="margin-top:10px;">
 
-                    <span id="fechaHora"></span>
-
-                    <div class="usuario">
-
-                        👤 Administrador
-
-                    </div>
+                    🔐 <span id="rolUsuario"></span>
 
                 </div>
 
-            </header>
+            </div>
 
-            <h2>Gestión de Productos</h2>
+        </header>
 
-            <form id="formProducto">
+        <h2>Gestión de Productos</h2>
 
-                <input type="hidden" id="idProducto">
+        <form id="formProducto">
 
-                <input
-                    type="text"
-                    id="nombre"
-                    placeholder="Nombre del producto"
-                    required>
-
-                <input
-                    type="text"
-                    id="codigoBarra"
-                    placeholder="Código de barras"
-                    required>
-
-                <input
-                    type="number"
-                    id="precioVenta"
-                    placeholder="Precio de venta"
-                    required>
-
-                <input
-                    type="number"
-                    id="precioCompra"
-                    placeholder="Precio de compra"
-                    required>
-
-                <input
-                    type="text"
-                    id="categoria"
-                    placeholder="Categoría">
-
-                <input
-                    type="text"
-                    id="unidadMedida"
-                    placeholder="Unidad de medida">
-
-                <input
-                    type="date"
-                    id="fechaVencimiento">
-
-                <button type="submit">
-
-                    Guardar Producto
-
-                </button>
-
-            </form>
-
-            <hr>
-
-            <h2>Listado de Productos</h2>
+            <input type="hidden" id="idProducto">
 
             <input
                 type="text"
-                id="buscar"
-                placeholder="Buscar producto por nombre..."
-                onkeyup="filtrarProductos()">
+                id="nombre"
+                placeholder="Nombre del producto"
+                required>
 
-            <table>
+            <input
+                type="text"
+                id="codigoBarra"
+                placeholder="Código de barras"
+                required>
 
-                <thead>
+            <input
+                type="number"
+                id="precioVenta"
+                placeholder="Precio de venta"
+                required>
 
-                    <tr>
+            <input
+                type="number"
+                id="precioCompra"
+                placeholder="Precio de compra"
+                required>
 
-                        <th>ID</th>
-                        <th>Nombre</th>
-                        <th>Código</th>
-                        <th>Precio Venta</th>
-                        <th>Categoría</th>
-                        <th>Acciones</th>
+            <input
+                type="text"
+                id="categoria"
+                placeholder="Categoría">
 
-                    </tr>
+            <input
+                type="text"
+                id="unidadMedida"
+                placeholder="Unidad de medida">
 
-                </thead>
+            <input
+                type="date"
+                id="fechaVencimiento">
 
-                <tbody id="tablaProductos">
+            <button type="submit">
 
-                </tbody>
+                Guardar Producto
 
-            </table>
+            </button>
 
-        </main>
+        </form>
 
-    </div>
+        <hr>
 
-    <script src="/js/productos.js"></script>
+        <h2>Listado de Productos</h2>
+
+        <input
+            type="text"
+            id="buscar"
+            placeholder="Buscar producto por nombre..."
+            onkeyup="filtrarProductos()">
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Código</th>
+                    <th>Precio Venta</th>
+                    <th>Categoría</th>
+                    <th>Acciones</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody id="tablaProductos">
+
+            </tbody>
+
+        </table>
+
+    </main>
+
+</div>
+
+<script src="/js/sesion.js"></script>
+<script src="/js/productos.js"></script>
+
+<script>
+
+function actualizarFechaHora(){
+
+    const ahora = new Date();
+
+    const opciones = {
+
+        weekday:"long",
+        year:"numeric",
+        month:"long",
+        day:"numeric",
+        hour:"2-digit",
+        minute:"2-digit",
+        second:"2-digit"
+
+    };
+
+    const fecha = ahora.toLocaleDateString("es-CO", opciones);
+
+    document.getElementById("fechaHora").innerHTML = fecha;
+
+}
+
+actualizarFechaHora();
+
+setInterval(actualizarFechaHora,1000);
+
+</script>
 
 </body>
 

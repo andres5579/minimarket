@@ -1,4 +1,5 @@
 const Empleado = require("../models/Empleado");
+const bcrypt = require("bcrypt");
 
 // ==========================
 // LISTAR EMPLEADOS
@@ -59,7 +60,7 @@ exports.buscar = (req, res) => {
 // ==========================
 // INSERTAR EMPLEADO
 // ==========================
-exports.insertar = (req, res) => {
+exports.insertar = async (req, res) => {
 
     const empleado = req.body;
 
@@ -77,30 +78,45 @@ exports.insertar = (req, res) => {
 
     }
 
-    Empleado.insertar(empleado, (err, resultado) => {
+    try {
 
-        if (err) {
-            return res.status(500).json({
-                exito: false,
-                mensaje: "Error al registrar el empleado.",
-                error: err.message
+        // Cifrar la contraseña
+        empleado.password = await bcrypt.hash(empleado.password, 10);
+
+        Empleado.insertar(empleado, (err, resultado) => {
+
+            if (err) {
+                return res.status(500).json({
+                    exito: false,
+                    mensaje: "Error al registrar el empleado.",
+                    error: err.message
+                });
+            }
+
+            return res.status(201).json({
+                exito: true,
+                mensaje: "Empleado registrado correctamente.",
+                id: resultado.insertId
             });
-        }
 
-        return res.status(201).json({
-            exito: true,
-            mensaje: "Empleado registrado correctamente.",
-            id: resultado.insertId
         });
 
-    });
+    } catch (error) {
+
+        return res.status(500).json({
+            exito: false,
+            mensaje: "Error al cifrar la contraseña.",
+            error: error.message
+        });
+
+    }
 
 };
 
 // ==========================
 // ACTUALIZAR EMPLEADO
 // ==========================
-exports.actualizar = (req, res) => {
+exports.actualizar = async (req, res) => {
 
     const empleado = req.body;
 
@@ -118,29 +134,44 @@ exports.actualizar = (req, res) => {
 
     }
 
-    Empleado.actualizar(req.params.id, empleado, (err, resultado) => {
+    try {
 
-        if (err) {
-            return res.status(500).json({
-                exito: false,
-                mensaje: "Error interno del servidor.",
-                error: err.message
+        // Cifrar la contraseña antes de actualizar
+        empleado.password = await bcrypt.hash(empleado.password, 10);
+
+        Empleado.actualizar(req.params.id, empleado, (err, resultado) => {
+
+            if (err) {
+                return res.status(500).json({
+                    exito: false,
+                    mensaje: "Error interno del servidor.",
+                    error: err.message
+                });
+            }
+
+            if (resultado.affectedRows === 0) {
+                return res.status(404).json({
+                    exito: false,
+                    mensaje: "Empleado no encontrado."
+                });
+            }
+
+            return res.status(200).json({
+                exito: true,
+                mensaje: "Empleado actualizado correctamente."
             });
-        }
 
-        if (resultado.affectedRows === 0) {
-            return res.status(404).json({
-                exito: false,
-                mensaje: "Empleado no encontrado."
-            });
-        }
-
-        return res.status(200).json({
-            exito: true,
-            mensaje: "Empleado actualizado correctamente."
         });
 
-    });
+    } catch (error) {
+
+        return res.status(500).json({
+            exito: false,
+            mensaje: "Error al cifrar la contraseña.",
+            error: error.message
+        });
+
+    }
 
 };
 

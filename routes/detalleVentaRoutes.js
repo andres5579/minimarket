@@ -12,13 +12,29 @@ const router = express.Router();
 
 const controller = require("../controllers/detalleVentaController");
 
+const auth = require("../middlewares/auth");
+const roles = require("../middlewares/roles");
+
+
 // ===========================
 // RUTAS
 // ===========================
 
-router.get("/",controller.obtenerTodos);
+// Obtener todos los detalles
+router.get(
+    "/",
+    auth,
+    roles("administrador"),
+    controller.obtenerTodos
+);
 
-router.get("/:id",controller.obtenerPorId);
+// Obtener un detalle por ID
+router.get(
+    "/:id",
+    auth,
+    roles("administrador"),
+    controller.obtenerPorId
+);
 
 // ===========================
 // EXPORTAR

@@ -1,219 +1,53 @@
+/* ==========================================
+   RESET
+========================================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
 body{
+    font-family:Arial, Helvetica, sans-serif;
+    background:#eef2f5;
 
-    font-family: Arial, Helvetica, sans-serif;
-
-    background:#f4f4f4;
-
-    margin:40px;
-
+    visibility:hidden;
 }
 
-h1{
-
-    color:#00695c;
-
-}
-
-form{
-
-    display:grid;
-
-    gap:10px;
-
-    max-width:500px;
-
-    margin-bottom:30px;
-
-}
-
-input{
-
-    padding:10px;
-
-}
-
-button{
-
-    padding:12px;
-
-    background:#00695c;
-
-    color:white;
-
-    border:none;
-
-    cursor:pointer;
-
-}
-
-button:hover{
-
-    background:#004d40;
-
-}
-
-table{
-
-    width:100%;
-
-    border-collapse:collapse;
-
-    background:white;
-
-}
-
-th{
-
-    background:#00695c;
-
-    color:white;
-
-}
-
-th,td{
-
-    border:1px solid #ddd;
-
-    padding:10px;
-
-    text-align:center;
-
-}
-
-.acciones{
-    display:flex;
-    gap:8px;
-    justify-content:center;
-}
-
-.btn-editar{
-    background:#1565c0;
-    color:white;
-    border:none;
-    padding:8px 12px;
-    cursor:pointer;
-}
-
-.btn-eliminar{
-    background:#c62828;
-    color:white;
-    border:none;
-    padding:8px 12px;
-    cursor:pointer;
-}
-
-#buscar{
-    width:300px;
-    margin-bottom:20px;
-    padding:10px;
-}
+/* ==========================================
+   CONTENEDOR GENERAL
+========================================== */
 
 .contenedor{
     display:flex;
 }
 
-.menu{
-    width:220px;
-    background:#004d40;
-    color:white;
-    min-height:100vh;
-    padding:20px;
-}
-
-.menu ul{
-    list-style:none;
-    padding:0;
-}
-
-.menu li{
-    padding:15px 0;
-    cursor:pointer;
-}
-
-.menu li:hover{
-    background:#00695c;
-}
-
-.contenido{
-    flex:1;
-    padding:30px;
-}
-/* Enlaces del menú */
-
-.menu ul li a{
-
-    color: white;
-
-    text-decoration: none;
-
-    display: block;
-
-    width: 100%;
-
-}
-
-.menu ul li a:hover{
-
-    color: white;
-
-}
-
-.menu ul li.activo{
-
-    background: #0f8f7e;
-
-    border-radius: 8px;
-
-}
-
-.menu ul li.activo a{
-
-    color: white;
-
-    font-weight: bold;
-
-}
-
 /* ==========================================
-   MEJORAS DE LA INTERFAZ
+   MENÚ LATERAL
 ========================================== */
-
-body{
-    margin:0;
-    background:#eef2f5;
-    font-family:Arial, Helvetica, sans-serif;
-}
-
-/* ===== Menú ===== */
 
 .menu{
 
     position:fixed;
-
     top:0;
-
     left:0;
 
     width:240px;
-
     height:100vh;
 
     background:#004d40;
-
     color:white;
 
     padding:25px;
 
-    box-sizing:border-box;
-
     box-shadow:4px 0 12px rgba(0,0,0,.2);
-
+    
 }
 
 .logo{
 
     text-align:center;
-
     margin-bottom:5px;
 
 }
@@ -221,33 +55,74 @@ body{
 .version{
 
     text-align:center;
-
     font-size:13px;
-
     color:#c8e6c9;
-
     margin-bottom:30px;
 
 }
 
-/* ===== Contenido ===== */
+.menu ul{
+
+    list-style:none;
+
+}
+
+.menu ul li{
+
+    margin-bottom:8px;
+    border-radius:8px;
+    transition:.3s;
+
+}
+
+.menu ul li a{
+
+    display:block;
+    padding:15px;
+
+    color:white;
+    text-decoration:none;
+
+}
+
+.menu ul li:hover{
+
+    background:#00695c;
+
+}
+
+.menu ul li.activo{
+
+    background:#0f8f7e;
+
+}
+
+.menu ul li.activo a{
+
+    font-weight:bold;
+
+}
+
+/* ==========================================
+   CONTENIDO
+========================================== */
 
 .contenido{
 
+    flex:1;
     margin-left:260px;
-
     padding:30px;
 
 }
 
-/* ===== Encabezado ===== */
+/* ==========================================
+   ENCABEZADO
+========================================== */
 
 .encabezado{
 
     display:flex;
-
     justify-content:space-between;
-
     align-items:center;
 
     background:white;
@@ -284,9 +159,32 @@ body{
 
 }
 
-/* ===== Formularios ===== */
+/* ==========================================
+   TÍTULOS
+========================================== */
+
+h1{
+
+    color:#00695c;
+
+}
+
+h2{
+
+    margin:20px 0;
+
+}
+
+/* ==========================================
+   FORMULARIOS
+========================================== */
 
 form{
+
+    display:grid;
+    gap:10px;
+
+    max-width:650px;
 
     background:white;
 
@@ -296,17 +194,17 @@ form{
 
     box-shadow:0 2px 10px rgba(0,0,0,.15);
 
-    max-width:650px;
+    margin-bottom:30px;
 
 }
 
 input{
 
+    padding:12px;
+
     border:1px solid #ccc;
 
     border-radius:8px;
-
-    padding:12px;
 
     transition:.3s;
 
@@ -322,19 +220,33 @@ input:focus{
 
 }
 
-/* ===== Botones ===== */
+/* ==========================================
+   BOTONES
+========================================== */
 
 button{
 
+    padding:12px;
+
+    background:#00695c;
+
+    color:white;
+
+    border:none;
+
     border-radius:8px;
 
-    transition:.3s;
+    cursor:pointer;
 
     font-weight:bold;
+
+    transition:.3s;
 
 }
 
 button:hover{
+
+    background:#004d40;
 
     transform:translateY(-2px);
 
@@ -344,27 +256,86 @@ button:hover{
 
 .btn-editar{
 
+    background:#1565c0;
+
+    color:white;
+
+    border:none;
+
+    padding:8px 12px;
+
     border-radius:6px;
+
+    cursor:pointer;
+
+}
+
+.btn-editar:hover{
+
+    background:#0d47a1;
 
 }
 
 .btn-eliminar{
 
+    background:#c62828;
+
+    color:white;
+
+    border:none;
+
+    padding:8px 12px;
+
     border-radius:6px;
+
+    cursor:pointer;
 
 }
 
-/* ===== Tabla ===== */
+.btn-eliminar:hover{
+
+    background:#8e0000;
+
+}
+
+/* ==========================================
+   TABLAS
+========================================== */
 
 table{
 
+    width:100%;
+
     margin-top:20px;
+
+    border-collapse:collapse;
+
+    background:white;
 
     border-radius:10px;
 
     overflow:hidden;
 
     box-shadow:0 2px 10px rgba(0,0,0,.15);
+
+}
+
+th{
+
+    background:#00695c;
+
+    color:white;
+
+}
+
+th,
+td{
+
+    border:1px solid #ddd;
+
+    padding:10px;
+
+    text-align:center;
 
 }
 
@@ -380,19 +351,121 @@ tbody tr:hover{
 
 }
 
-/* ===== Buscar ===== */
+/* ==========================================
+   ACCIONES
+========================================== */
 
-#buscar{
+.acciones{
 
-    border-radius:8px;
+    display:flex;
 
-    width:350px;
+    justify-content:center;
+
+    gap:8px;
 
 }
 
-/* ===== Responsive ===== */
+/* ==========================================
+   BUSCADOR
+========================================== */
+
+#buscar{
+
+    width:350px;
+
+    padding:12px;
+
+    margin-bottom:20px;
+
+    border:1px solid #ccc;
+
+    border-radius:8px;
+
+}
+
+/* ==========================================
+   DASHBOARD
+========================================== */
+
+.cards{
+
+    display:flex;
+
+    flex-wrap:wrap;
+
+    gap:25px;
+
+    margin-top:30px;
+
+}
+
+.card{
+
+    width:220px;
+
+    background:white;
+
+    padding:30px;
+
+    text-align:center;
+
+    text-decoration:none;
+
+    color:#333;
+
+    border-radius:12px;
+
+    box-shadow:0 2px 10px rgba(0,0,0,.15);
+
+    transition:.3s;
+
+}
+
+.card:hover{
+
+    transform:translateY(-5px);
+
+    box-shadow:0 8px 20px rgba(0,0,0,.2);
+
+}
+
+.card h3{
+
+    margin:15px 0 10px;
+
+}
+
+.card h2{
+
+    color:#00695c;
+
+}
+
+.card p{
+
+    color:#777;
+
+}
+
+.card.deshabilitado{
+
+    opacity:.6;
+
+    cursor:not-allowed;
+
+}
+
+/* ==========================================
+   RESPONSIVE
+========================================== */
 
 @media(max-width:900px){
+
+    .contenedor{
+
+        flex-direction:column;
+
+    }
 
     .menu{
 
@@ -420,67 +493,28 @@ tbody tr:hover{
 
     }
 
-}
-/* ===== Dashboard ===== */
+    .cards{
 
-.cards{
+        justify-content:center;
 
-    display:flex;
+    }
 
-    flex-wrap:wrap;
+    .card{
 
-    gap:25px;
+        width:100%;
 
-    margin-top:30px;
+    }
 
-}
+    #buscar{
 
-.card{
+        width:100%;
 
-    width:220px;
+    }
 
-    background:white;
+    form{
 
-    border-radius:12px;
+        max-width:100%;
 
-    padding:30px;
-
-    text-align:center;
-
-    text-decoration:none;
-
-    color:#333;
-
-    box-shadow:0 2px 10px rgba(0,0,0,.15);
-
-    transition:.3s;
-
-}
-
-.card:hover{
-
-    transform:translateY(-5px);
-
-    box-shadow:0 8px 20px rgba(0,0,0,.2);
-
-}
-
-.card h3{
-
-    margin:15px 0 10px;
-
-}
-
-.card p{
-
-    color:#777;
-
-}
-
-.card.deshabilitado{
-
-    opacity:.6;
-
-    cursor:not-allowed;
+    }
 
 }

@@ -3,14 +3,42 @@ const router = express.Router();
 
 const empleadoController = require("../controllers/empleadoController");
 
-router.get("/", empleadoController.listar);
+const auth = require("../middlewares/auth");
+const roles = require("../middlewares/roles");
 
-router.get("/:id", empleadoController.buscar);
+router.get(
+    "/",
+    auth,
+    roles("administrador"),
+    empleadoController.listar
+);
 
-router.post("/", empleadoController.insertar);
+router.get(
+    "/:id",
+    auth,
+    roles("administrador"),
+    empleadoController.buscar
+);
 
-router.put("/:id", empleadoController.actualizar);
+router.post(
+    "/",
+    auth,
+    roles("administrador"),
+    empleadoController.insertar
+);
 
-router.delete("/:id", empleadoController.eliminar);
+router.put(
+    "/:id",
+    auth,
+    roles("administrador"),
+    empleadoController.actualizar
+);
+
+router.delete(
+    "/:id",
+    auth,
+    roles("administrador"),
+    empleadoController.eliminar
+);
 
 module.exports = router;

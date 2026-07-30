@@ -1,4 +1,4 @@
-const Usuario = require("../models/Usuario");
+const Empleado = require("../models/Empleado");
 
 exports.login = (req, res) => {
 
@@ -13,7 +13,7 @@ exports.login = (req, res) => {
 
     }
 
-    Usuario.login(usuario, contraseña, (err, resultados) => {
+    Empleado.login(usuario, contraseña, (err, resultados) => {
 
         if (err) {
 
@@ -32,8 +32,13 @@ exports.login = (req, res) => {
             });
 
         }
-
-        req.session.usuario = resultados[0];
+        
+        req.session.usuario = {
+            id: resultados[0].idEmpleado,
+            nombre: resultados[0].nombre,
+            rol: resultados[0].rol,
+            usuario: resultados[0].usuario
+        };
 
         res.json({
             exito: true,

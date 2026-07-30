@@ -1,21 +1,57 @@
 const express = require("express");
-
 const router = express.Router();
 
 const ventaController = require("../controllers/ventaController");
 
-// Listas
-router.get("/clientes", ventaController.clientes);
+const auth = require("../middlewares/auth");
+const roles = require("../middlewares/roles");
 
-router.get("/empleados", ventaController.empleados);
+// Historial de ventas
+router.get(
+    "/",
+    auth,
+    roles("administrador", "cajero"),
+    ventaController.historial
+);
 
-router.get("/productos", ventaController.productos);
+// Lista de clientes
+router.get(
+    "/clientes",
+    auth,
+    roles("administrador", "cajero"),
+    ventaController.clientes
+);
 
-router.get("/historial", ventaController.historial);
+// Lista de empleados
+router.get(
+    "/empleados",
+    auth,
+    roles("administrador", "cajero"),
+    ventaController.empleados
+);
 
-router.get("/detalle/:id", ventaController.detalle);
+// Lista de productos
+router.get(
+    "/productos",
+    auth,
+    roles("administrador", "cajero"),
+    ventaController.productos
+);
 
 // Registrar venta
-router.post("/", ventaController.guardar);
+router.post(
+    "/",
+    auth,
+    roles("administrador", "cajero"),
+    ventaController.guardar
+);
+
+// Detalle de una venta
+router.get(
+    "/:id",
+    auth,
+    roles("administrador", "cajero"),
+    ventaController.detalle
+);
 
 module.exports = router;

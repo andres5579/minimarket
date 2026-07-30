@@ -7,7 +7,7 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Dashboard</title>
+    <title>Dashboard | MiniMarket</title>
 
     <link rel="stylesheet" href="/css/estilos.css">
 
@@ -21,7 +21,7 @@
 
         <h2 class="logo">🛒 MiniMarket</h2>
 
-        <p class="version">Versión 1.0</p>
+        <p class="version">Versión 2.1</p>
 
         <ul>
 
@@ -33,23 +33,23 @@
                 <a href="/productos">📦 Productos</a>
             </li>
 
-            <li>
+            <li id="menuClientes">
                 <a href="/clientes">👥 Clientes</a>
             </li>
 
-            <li>
+            <li id="menuEmpleados">
                 <a href="/empleados">👨‍💼 Empleados</a>
             </li>
 
-            <li>
+            <li id="menuInventario">
                 <a href="/inventario">📋 Inventario</a>
             </li>
 
-            <li>
+            <li id="menuVentas">
                 <a href="/ventas">🧾 Ventas</a>
             </li>
 
-            <li>
+            <li id="menuDetalleVenta">
                 <a href="/detalleventa">📄 Detalle Venta</a>
             </li>
 
@@ -67,7 +67,7 @@
 
             <div>
 
-                <h1>Sistema de Minimarket</h1>
+                <h1>Sistema de Gestión MiniMarket</h1>
 
                 <p>Panel Administrativo</p>
 
@@ -79,7 +79,13 @@
 
                 <div class="usuario">
 
-                    👤 <span id="nombreUsuario">Administrador</span>
+                    👤 <strong id="nombreUsuario">Usuario</strong>
+
+                </div>
+
+                <div class="usuario" style="margin-top:10px;">
+
+                    🔐 <span id="rolUsuario">Rol</span>
 
                 </div>
 
@@ -93,7 +99,7 @@
 
             <a class="card" href="/productos">
 
-                📦
+                <h1>📦</h1>
 
                 <h3>Productos</h3>
 
@@ -101,9 +107,9 @@
 
             </a>
 
-            <a class="card" href="/clientes">
+            <a class="card" href="/clientes" id="menuClientesCard">
 
-                👥
+                <h1>👥</h1>
 
                 <h3>Clientes</h3>
 
@@ -111,9 +117,9 @@
 
             </a>
 
-            <a class="card" href="/empleados">
+            <a class="card" href="/empleados" id="menuEmpleadosCard">
 
-                👨‍💼
+                <h1>👨‍💼</h1>
 
                 <h3>Empleados</h3>
 
@@ -121,9 +127,9 @@
 
             </a>
 
-            <a class="card" href="/inventario">
+            <a class="card" href="/inventario" id="menuInventarioCard">
 
-                📋
+                <h1>📋</h1>
 
                 <h3>Inventario</h3>
 
@@ -131,9 +137,9 @@
 
             </a>
 
-            <a class="card" href="/ventas">
+            <a class="card" href="/ventas" id="menuVentasCard">
 
-                🧾
+                <h1>🧾</h1>
 
                 <h3>Ventas</h3>
 
@@ -141,9 +147,9 @@
 
             </a>
 
-            <a class="card" href="/detalleventa">
+            <a class="card" href="/detalleventa" id="menuDetalleVentaCard">
 
-                📄
+                <h1>📄</h1>
 
                 <h3>Detalle Venta</h3>
 
@@ -157,7 +163,42 @@
 
 </div>
 
+<script src="/js/sesion.js"></script>
 <script src="/js/dashboard.js"></script>
+
+<script>
+
+function actualizarFechaHora(){
+
+    const ahora = new Date();
+
+    const opciones = {
+        weekday: "long",
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit"
+    };
+
+    const fecha = ahora.toLocaleDateString("es-CO", opciones);
+
+    const elemento = document.getElementById("fechaHora");
+
+    if(elemento){
+
+        elemento.innerText = fecha;
+
+    }
+
+}
+
+actualizarFechaHora();
+
+setInterval(actualizarFechaHora,1000);
+
+</script>
 
 </body>
 

@@ -152,18 +152,16 @@ async function editarProducto(id) {
 
         const respuesta = await fetch("/api/productos/" + id);
 
-        const datos = await respuesta.json();
+        const producto = await respuesta.json();
 
-        if (datos.length === 0) {
+        if (!producto || !producto.idProducto) {
 
             alert("Producto no encontrado");
-
+            
             return;
 
         }
-
-        const producto = datos[0];
-
+        
         document.getElementById("idProducto").value = producto.idProducto;
         document.getElementById("nombre").value = producto.nombre;
         document.getElementById("codigoBarra").value = producto.codigoBarra;

@@ -1,59 +1,35 @@
-async function cargarDashboard() {
+document.addEventListener("DOMContentLoaded", () => {
 
-    try {
+    fetch("/api/dashboard")
+        .then(res => res.json())
+        .then(datos => {
 
-        // Verificar la sesión del usuario
-        const respuestaUsuario = await fetch("/login/usuario");
+            const productos = document.getElementById("totalProductos");
+            const clientes = document.getElementById("totalClientes");
+            const empleados = document.getElementById("totalEmpleados");
+            const inventario = document.getElementById("totalInventario");
+            const ventas = document.getElementById("totalVentas");
 
-        if (!respuestaUsuario.ok) {
-            window.location = "/";
-            return;
-        }
+            if (productos)
+                productos.textContent = datos.totalProductos;
 
-        const usuario = await respuestaUsuario.json();
+            if (clientes)
+                clientes.textContent = datos.totalClientes;
 
-        document.getElementById("nombreUsuario").innerHTML = usuario.nombre;
+            if (empleados)
+                empleados.textContent = datos.totalEmpleados;
 
-        // Cargar estadísticas del dashboard
-        const respuesta = await fetch("/api/dashboard");
+            if (inventario)
+                inventario.textContent = datos.totalInventario;
 
-        const datos = await respuesta.json();
+            if (ventas)
+                ventas.textContent = datos.totalVentas;
 
-        document.getElementById("totalProductos").innerHTML = datos.productos;
+        })
+        .catch(error => {
 
-        document.getElementById("totalClientes").innerHTML = datos.clientes;
+            console.error("Error cargando dashboard:", error);
 
-        document.getElementById("totalEmpleados").innerHTML = datos.empleados;
+        });
 
-        document.getElementById("totalInventario").innerHTML = datos.inventario;
-
-        if (document.getElementById("totalVentas")) {
-            document.getElementById("totalVentas").innerHTML = datos.ventas ?? 0;
-        }
-
-    } catch (error) {
-
-        console.error("Error al cargar el dashboard:", error);
-
-        window.location = "/";
-
-    }
-
-}
-
-function actualizarFechaHora() {
-
-    const ahora = new Date();
-
-    document.getElementById("fechaHora").innerHTML =
-        ahora.toLocaleDateString("es-CO") +
-        " " +
-        ahora.toLocaleTimeString("es-CO");
-
-}
-
-setInterval(actualizarFechaHora, 1000);
-
-actualizarFechaHora();
-
-cargarDashboard();
+});

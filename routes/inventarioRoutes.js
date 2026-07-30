@@ -1,17 +1,44 @@
 const express = require("express");
-
 const router = express.Router();
 
 const inventarioController = require("../controllers/inventarioController");
 
-router.get("/", inventarioController.listar);
+const auth = require("../middlewares/auth");
+const roles = require("../middlewares/roles");
 
-router.get("/:id", inventarioController.buscar);
+router.get(
+    "/",
+    auth,
+    roles("administrador", "auxiliar de inventario"),
+    inventarioController.listar
+);
 
-router.post("/", inventarioController.insertar);
+router.get(
+    "/:id",
+    auth,
+    roles("administrador", "auxiliar de inventario"),
+    inventarioController.buscar
+);
 
-router.put("/:id", inventarioController.actualizar);
+router.post(
+    "/",
+    auth,
+    roles("administrador", "auxiliar de inventario"),
+    inventarioController.insertar
+);
 
-router.delete("/:id", inventarioController.eliminar);
+router.put(
+    "/:id",
+    auth,
+    roles("administrador", "auxiliar de inventario"),
+    inventarioController.actualizar
+);
+
+router.delete(
+    "/:id",
+    auth,
+    roles("administrador"),
+    inventarioController.eliminar
+);
 
 module.exports = router;

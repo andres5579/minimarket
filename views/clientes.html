@@ -7,7 +7,7 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>MiniMarket - Gestión de Clientes</title>
+    <title>MiniMarket | Gestión de Clientes</title>
 
     <link rel="stylesheet" href="/css/estilos.css">
 
@@ -15,128 +15,182 @@
 
 <body>
 
-    <div class="contenedor">
+<div class="contenedor">
 
-        <!-- MENÚ LATERAL -->
+    <!-- MENÚ -->
 
-        <aside class="menu">
+    <aside class="menu">
 
-            <h2 class="logo">
+        <h2 class="logo">🛒 MiniMarket</h2>
 
-            🛒 MiniMarket
+        <p class="version">Versión 2.1</p>
 
-            </h2>
+        <ul>
 
-            <p class="version">
+            <li>
+                <a href="/dashboard">🏠 Dashboard</a>
+            </li>
 
-            Versión 1.0
+            <li>
+                <a href="/productos">📦 Productos</a>
+            </li>
 
-            </p>
+            <li class="activo" id="menuClientes">
+                <a href="/clientes">👥 Clientes</a>
+            </li>
 
-            <ul>
+            <li id="menuEmpleados">
+                <a href="/empleados">👨‍💼 Empleados</a>
+            </li>
 
-                <li><a href="/">🏠 Dashboard</a></li>
-                <li><a href="/productos">📦 Productos</a></li>
-                <li class="activo"><a href="/clientes">👥 Clientes</a></li>
-                <li><a href="/empleados">👨‍💼 Empleados</a></li>
-                <li><a href="/inventario">📋 Inventario</a></li>
-                <li><a href="/ventas">🧾 Ventas</a></li>
-                <li><a href="/detalleventa">📄 Detalle Venta</a></li>
+            <li id="menuInventario">
+                <a href="/inventario">📋 Inventario</a>
+            </li>
 
-            </ul>
+            <li id="menuVentas">
+                <a href="/ventas">🧾 Ventas</a>
+            </li>
 
-        </aside>
+            <li id="menuDetalleVenta">
+                <a href="/detalleventa">📄 Detalle Venta</a>
+            </li>
 
-        <!-- CONTENIDO -->
+            <li>
+                <a href="/login/logout">🚪 Cerrar sesión</a>
+            </li>
 
-        <main class="contenido">
+        </ul>
 
-            <header class="encabezado">
+    </aside>
 
-                <div>
+    <!-- CONTENIDO -->
 
-                    <h1>Sistema de Minimarket</h1>
+    <main class="contenido">
 
-                    <p>Panel Administrativo</p>
+        <header class="encabezado">
+
+            <div>
+
+                <h1>Sistema de Gestión MiniMarket</h1>
+
+                <p>Panel Administrativo</p>
+
+            </div>
+
+            <div class="infoUsuario">
+
+                <span id="fechaHora"></span>
+
+                <div class="usuario">
+
+                    👤 <strong id="nombreUsuario"></strong>
 
                 </div>
 
-                    <div class="infoUsuario">
+                <div class="usuario" style="margin-top:10px;">
 
-                    <span id="fechaHora"></span>
-
-                    <div class="usuario">
-
-                        👤 Administrador
-
-                    </div>
+                    🔐 <span id="rolUsuario"></span>
 
                 </div>
 
-            </header>
+            </div>
 
-            <h2>Gestión de Clientes</h2>
+        </header>
 
-            <form id="formCliente">
+        <h2>Gestión de Clientes</h2>
 
-                <input type="hidden" id="idCliente">
+        <form id="formCliente">
 
-                <input
-                    type="text"
-                    id="nombre"
-                    placeholder="Nombre del cliente"
-                    required>
-
-                <input
-                    type="text"
-                    id="telefono"
-                    placeholder="Teléfono">
-
-                <button type="submit">
-
-                    Guardar Cliente
-
-                </button>
-
-            </form>
-
-            <hr>
-
-            <h2>Listado de Clientes</h2>
+            <input
+                type="hidden"
+                id="idCliente">
 
             <input
                 type="text"
-                id="buscar"
-                placeholder="Buscar cliente..."
-                onkeyup="filtrarClientes()">
+                id="nombre"
+                placeholder="Nombre del cliente"
+                required>
 
-            <table>
+            <input
+                type="text"
+                id="telefono"
+                placeholder="Teléfono">
 
-                <thead>
+            <button type="submit">
 
-                    <tr>
+                Guardar Cliente
 
-                        <th>ID</th>
-                        <th>Nombre</th>
-                        <th>Teléfono</th>
-                        <th>Puntos</th>
-                        <th>Acciones</th>
+            </button>
 
-                    </tr>
+        </form>
 
-                </thead>
+        <hr>
 
-                <tbody id="tablaClientes">
+        <h2>Listado de Clientes</h2>
 
-                </tbody>
+        <input
+            type="text"
+            id="buscar"
+            placeholder="Buscar cliente..."
+            onkeyup="filtrarClientes()">
 
-            </table>
+        <table>
 
-        </main>
+            <thead>
 
-    </div>
+                <tr>
 
-    <script src="/js/clientes.js"></script>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Teléfono</th>
+                    <th>Puntos</th>
+                    <th>Acciones</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody id="tablaClientes">
+
+            </tbody>
+
+        </table>
+
+    </main>
+
+</div>
+
+<script src="/js/sesion.js"></script>
+<script src="/js/clientes.js"></script>
+
+<script>
+
+function actualizarFechaHora(){
+
+    const ahora = new Date();
+
+    const opciones = {
+
+        weekday:"long",
+        year:"numeric",
+        month:"long",
+        day:"numeric",
+        hour:"2-digit",
+        minute:"2-digit",
+        second:"2-digit"
+
+    };
+
+    document.getElementById("fechaHora").innerHTML =
+        ahora.toLocaleDateString("es-CO",opciones);
+
+}
+
+actualizarFechaHora();
+
+setInterval(actualizarFechaHora,1000);
+
+</script>
 
 </body>
 
