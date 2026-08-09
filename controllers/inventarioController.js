@@ -174,7 +174,13 @@ exports.eliminar = (req, res) => {
             });
         }
 
-        return res.status(204).send();
+        return res.status(200).json({
+
+            exito: true,
+
+            mensaje: "Registro de inventario eliminado correctamente."
+
+        });
 
     });
 

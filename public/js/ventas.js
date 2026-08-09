@@ -76,6 +76,9 @@ async function cargarProductos(){
 
     productos = await respuesta.json();
 
+    // Limpiar el combo antes de volver a cargarlo
+    producto.innerHTML = '<option value="">Seleccione un producto</option>';
+
     productos.forEach(p=>{
 
         producto.innerHTML +=
@@ -211,6 +214,33 @@ async function guardarVenta(){
 
     }
 
+    // Validar cliente
+    if(cliente.value===""){
+
+        alert("Seleccione un cliente");
+
+        return;
+
+    }
+
+    // Validar empleado
+    if(empleado.value===""){
+
+        alert("Seleccione un empleado");
+
+        return;
+
+    };
+
+    // Validar método de pago
+    if(metodoPago.value===""){
+
+        alert("Seleccione un método de pago");
+
+        return;
+
+    };
+
     const datos={
 
         idCliente:cliente.value,
@@ -257,14 +287,19 @@ async function guardarVenta(){
 
     );
 
-    const resultado=await respuesta.json();
+    const resultado = await respuesta.json();
 
     alert(resultado.mensaje);
 
+    // Vaciar carrito
     carrito = [];
 
     mostrarCarrito();
 
+    // Actualizar lista de productos
+    await cargarProductos();
+
+    // Limpiar formulario
     cliente.selectedIndex = 0;
 
     empleado.selectedIndex = 0;

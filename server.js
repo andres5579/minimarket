@@ -136,6 +136,17 @@ app.get(
 // =========================
 const PUERTO = 3000;
 
-app.listen(PUERTO, () => {
-    console.log(`Servidor iniciado en http://localhost:${PUERTO}`);
-});
+// Solo inicia el servidor cuando
+// server.js se ejecuta directamente
+if (require.main === module) {
+
+    app.listen(PUERTO, () => {
+
+        console.log(`Servidor iniciado en http://localhost:${PUERTO}`);
+
+    });
+
+}
+
+// Exportar la aplicación para Jest y Supertest
+module.exports = app;

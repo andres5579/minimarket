@@ -22,7 +22,7 @@ formulario.addEventListener("submit", async (e) => {
 
             body: JSON.stringify({
                 usuario,
-                contraseña
+                password: contraseña
             })
 
         });

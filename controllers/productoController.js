@@ -171,10 +171,30 @@ exports.eliminar = (req, res) => {
 
         if (error) {
 
+            // Si el producto está relacionado con el inventario
+            if (error.code === "ER_ROW_IS_REFERENCED_2") {
+
+                return res.status(400).json({
+
+                    exito: false,
+
+                    mensaje: "No es posible eliminar este producto porque está asociado al inventario. Primero elimínelo del inventario."
+
+                });
+
+            }
+
+            // Solo mostrar en consola errores inesperados
+            console.error(error);
+
             return res.status(500).json({
+
                 exito: false,
+
                 mensaje: "Error interno del servidor.",
+
                 error: error.message
+
             });
 
         }
@@ -182,13 +202,22 @@ exports.eliminar = (req, res) => {
         if (resultado.affectedRows === 0) {
 
             return res.status(404).json({
+
                 exito: false,
+
                 mensaje: "Producto no encontrado."
+
             });
 
         }
 
-        return res.status(204).send();
+        return res.status(200).json({
+
+            exito: true,
+
+            mensaje: "Producto eliminado correctamente."
+
+        });
 
     });
 

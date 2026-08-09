@@ -50,7 +50,7 @@ async function cargarProductos() {
 }
 
 // ======================
-// Guardar
+// Guardar o Actualizar
 // ======================
 
 formulario.addEventListener("submit", async (e) => {
@@ -68,9 +68,12 @@ formulario.addEventListener("submit", async (e) => {
 
     try {
 
+        let respuesta;
+
+        // Registrar
         if (idInventario.value === "") {
 
-            await fetch("/api/inventario", {
+            respuesta = await fetch("/api/inventario", {
 
                 method: "POST",
 
@@ -82,9 +85,11 @@ formulario.addEventListener("submit", async (e) => {
 
             });
 
-        } else {
+        }
+        // Actualizar
+        else {
 
-            await fetch(`/api/inventario/${idInventario.value}`, {
+            respuesta = await fetch(`/api/inventario/${idInventario.value}`, {
 
                 method: "PUT",
 
@@ -98,15 +103,25 @@ formulario.addEventListener("submit", async (e) => {
 
         }
 
+        // Obtener la respuesta del servidor
+        const resultado = await respuesta.json();
+
+        // Mostrar el mensaje enviado por el controlador
+        alert(resultado.mensaje);
+
+        // Limpiar formulario
         formulario.reset();
 
         idInventario.value = "";
 
+        // Recargar la tabla
         cargarInventario();
 
     } catch (error) {
 
         console.error(error);
+
+        alert("Ocurrió un error al guardar el inventario.");
 
     }
 
@@ -247,17 +262,23 @@ async function eliminarInventario(id) {
 
     try {
 
-        await fetch(`/api/inventario/${id}`, {
+        const respuesta = await fetch(`/api/inventario/${id}`, {
 
             method: "DELETE"
 
         });
+
+        const resultado = await respuesta.json();
+
+        alert(resultado.mensaje);
 
         cargarInventario();
 
     } catch (error) {
 
         console.error(error);
+
+        alert("Error al eliminar el registro del inventario.");
 
     }
 

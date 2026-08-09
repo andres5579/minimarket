@@ -25,18 +25,17 @@ formulario.addEventListener("submit", async (e) => {
     const datos = {
 
         nombre: nombre.value,
-
         rol: rol.value,
-
         usuario: usuario.value,
-
         password: password.value
 
     };
 
-    if (idEmpleado.value == "") {
+    let respuesta;
 
-        await fetch("/api/empleados", {
+    if (idEmpleado.value === "") {
+
+        respuesta = await fetch("/api/empleados", {
 
             method: "POST",
 
@@ -50,7 +49,7 @@ formulario.addEventListener("submit", async (e) => {
 
     } else {
 
-        await fetch(`/api/empleados/${idEmpleado.value}`, {
+        respuesta = await fetch(`/api/empleados/${idEmpleado.value}`, {
 
             method: "PUT",
 
@@ -63,6 +62,12 @@ formulario.addEventListener("submit", async (e) => {
         });
 
     }
+
+    // Obtener la respuesta del servidor
+    const resultado = await respuesta.json();
+
+    // Mostrar el mensaje enviado por el controlador
+    alert(resultado.mensaje);
 
     formulario.reset();
 
@@ -170,11 +175,15 @@ async function eliminarEmpleado(id){
 
     if(!confirm("¿Eliminar empleado?")) return;
 
-    await fetch(`/api/empleados/${id}`,{
+    const respuesta = await fetch(`/api/empleados/${id}`,{
 
         method:"DELETE"
 
     });
+
+    const resultado = await respuesta.json();
+
+    alert(resultado.mensaje);
 
     cargarEmpleados();
 

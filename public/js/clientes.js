@@ -139,8 +139,6 @@ async function editarCliente(id) {
 
     const datos = await respuesta.json();
 
-    const cliente = datos[0];
-
     document.getElementById("idCliente").value = cliente.idCliente;
 
     document.getElementById("nombre").value = cliente.nombre;
@@ -163,13 +161,27 @@ async function eliminarCliente(id) {
 
     }
 
-    await fetch("/api/clientes/" + id, {
+    try {
 
-        method: "DELETE"
+        const respuesta = await fetch("/api/clientes/" + id, {
 
-    });
+            method: "DELETE"
 
-    cargarClientes();
+        });
+
+        const resultado = await respuesta.json();
+
+        alert(resultado.mensaje);
+
+        cargarClientes();
+
+    } catch (error) {
+
+        console.error(error);
+
+        alert("Error al eliminar el cliente.");
+
+    }
 
 }
 

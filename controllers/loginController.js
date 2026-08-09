@@ -2,9 +2,9 @@ const Empleado = require("../models/Empleado");
 
 exports.login = (req, res) => {
 
-    const { usuario, contraseña } = req.body;
+    const { usuario, password } = req.body;
 
-    if (!usuario || !contraseña) {
+    if (!usuario || !password) {
 
         return res.status(400).json({
             exito: false,
@@ -13,7 +13,7 @@ exports.login = (req, res) => {
 
     }
 
-    Empleado.login(usuario, contraseña, (err, resultados) => {
+    Empleado.login(usuario, password, (err, resultados) => {
 
         if (err) {
 
