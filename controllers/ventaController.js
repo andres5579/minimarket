@@ -70,12 +70,12 @@ exports.productos = (req, res) => {
 // Guardar venta
 // ===========================
 
-exports.guardar = (req, res) => {
+exports.guardar = async (req, res) => {
 
     const venta = req.body;
 
     // ===========================
-    // Validaciones
+    // Validaciones generales
     // ===========================
 
     if (
@@ -101,7 +101,7 @@ exports.guardar = (req, res) => {
 
     }
 
-    if (venta.totalPagar <= 0) {
+    if (Number(venta.totalPagar) <= 0) {
 
         return res.status(400).json({
             exito: false,
@@ -110,187 +110,131 @@ exports.guardar = (req, res) => {
 
     }
 
-    let pendientesStock = venta.detalles.length;
-
     // ===========================
-    // Verificar stock
+    // Validar detalles
     // ===========================
 
-    venta.detalles.forEach(detalle => {
+    for (const detalle of venta.detalles) {
 
-        Venta.consultarStock(detalle.idProducto, (err, resultado) => {
+        if (!detalle.idProducto) {
 
-            if (err) {
+            return res.status(400).json({
+                exito: false,
+                mensaje: "Cada detalle debe tener un producto."
+            });
 
-                return res.status(500).json({
-                    exito: false,
-                    mensaje: "Error al consultar el inventario.",
-                    error: err.message
-                });
+        }
 
-            }
+        if (
+            !Number.isInteger(Number(detalle.cantidad)) ||
+            Number(detalle.cantidad) <= 0
+        ) {
 
-            if (resultado.length === 0) {
+            return res.status(400).json({
+                exito: false,
+                mensaje: "La cantidad debe ser un número entero mayor que cero."
+            });
 
-                return res.status(404).json({
-                    exito: false,
-                    mensaje: "Producto no encontrado en inventario."
-                });
+        }
 
-            }
+        if (
+            !Number.isFinite(Number(detalle.precioUnitario)) ||
+            Number(detalle.precioUnitario) <= 0
+        ) {
 
-            if (resultado[0].stockActual < detalle.cantidad) {
+            return res.status(400).json({
+                exito: false,
+                mensaje: "El precio unitario debe ser mayor que cero."
+            });
 
-                return res.status(400).json({
-                    exito: false,
-                    mensaje: `Stock insuficiente para el producto ${detalle.idProducto}.`
-                });
+        }
 
-            }
+        if (
+            !Number.isFinite(Number(detalle.subtotal)) ||
+            Number(detalle.subtotal) <= 0
+        ) {
 
-            pendientesStock--;
+            return res.status(400).json({
+                exito: false,
+                mensaje: "El subtotal debe ser mayor que cero."
+            });
 
-            if (pendientesStock === 0) {
+        }
 
-                registrarVenta();
+        // ===========================
+        // Validar subtotal
+        // ===========================
 
-            }
+        const cantidad = Number(detalle.cantidad);
+        const precio = Number(detalle.precioUnitario);
+        const subtotal = Number(detalle.subtotal);
 
+        const subtotalCalculado = cantidad * precio;
+
+        if (Math.abs(subtotal - subtotalCalculado) > 0.01) {
+
+            return res.status(400).json({
+                exito: false,
+                mensaje: `El subtotal del producto ${detalle.idProducto} no coincide con la cantidad y el precio.`
+            });
+
+        }
+
+    }
+
+    // ===========================
+    // Validar total
+    // ===========================
+
+    const totalCalculado = venta.detalles.reduce(
+        (total, detalle) => total + Number(detalle.subtotal),
+        0
+    );
+
+    if (
+        Math.abs(
+            Number(venta.totalPagar) - totalCalculado
+        ) > 0.01
+    ) {
+
+        return res.status(400).json({
+            exito: false,
+            mensaje: "El total de la venta no coincide con la suma de los subtotales."
         });
 
-    });
+    }
 
     // ===========================
     // Registrar venta
     // ===========================
 
-    function registrarVenta() {
+    try {
 
-        Venta.registrarVenta(venta, (err, resultadoVenta) => {
+        const resultado = await Venta.registrarVentaCompleta(venta);
 
-            if (err) {
+        return res.status(201).json({
 
-                return res.status(500).json({
-                    exito: false,
-                    mensaje: "Error al registrar la venta.",
-                    error: err.message
-                });
+            exito: true,
 
-            }
+            mensaje: "Venta registrada correctamente.",
 
-            const idVenta = resultadoVenta.insertId;
+            idVenta: resultado.idVenta,
 
-            registrarDetalles(idVenta);
+            puntosGanados: resultado.puntosGanados
 
         });
 
-    }
+    } catch (error) {
 
-    // ===========================
-    // Registrar detalles
-    // ===========================
+        console.error("Error al registrar venta:", error);
 
-    function registrarDetalles(idVenta) {
+        return res.status(400).json({
 
-        let pendientes = venta.detalles.length;
+            exito: false,
 
-        venta.detalles.forEach(detalle => {
-
-            Venta.registrarDetalle({
-
-                idVenta,
-                idProducto: detalle.idProducto,
-                cantidad: detalle.cantidad,
-                precioUnitario: detalle.precioUnitario,
-                subtotal: detalle.subtotal
-
-            }, (err) => {
-
-                if (err) {
-
-                    return res.status(500).json({
-                        exito: false,
-                        mensaje: "Error al registrar el detalle.",
-                        error: err.message
-                    });
-
-                }
-
-                Venta.actualizarInventario(
-
-                    detalle.idProducto,
-
-                    detalle.cantidad,
-
-                    (err) => {
-
-                        if (err) {
-
-                            return res.status(500).json({
-                                exito: false,
-                                mensaje: "Error al actualizar el inventario.",
-                                error: err.message
-                            });
-
-                        }
-
-                        pendientes--;
-
-                        if (pendientes === 0) {
-
-                            finalizarVenta();
-
-                        }
-
-                    }
-
-                );
-
-            });
+            mensaje: error.message
 
         });
-
-    }
-
-    // ===========================
-    // Finalizar venta
-    // ===========================
-
-    function finalizarVenta() {
-
-        const puntos = Math.floor(venta.totalPagar / 1000);
-
-        Venta.actualizarPuntos(
-
-            venta.idCliente,
-
-            puntos,
-
-            (err) => {
-
-                if (err) {
-
-                    return res.status(500).json({
-                        exito: false,
-                        mensaje: "La venta fue registrada, pero no se actualizaron los puntos.",
-                        error: err.message
-                    });
-
-                }
-
-                return res.status(201).json({
-
-                    exito: true,
-
-                    mensaje: "Venta registrada correctamente.",
-
-                    puntosGanados: puntos
-
-                });
-
-            }
-
-        );
 
     }
 
