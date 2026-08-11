@@ -33,6 +33,43 @@ const Producto = {
     },
 
     // ===========================
+    // BUSCAR CÓDIGO DE BARRAS DUPLICADO
+    // ===========================
+
+    buscarPorCodigoBarra(codigoBarra, idExcluir, callback) {
+
+        let sql = `
+            SELECT
+                idProducto,
+                codigoBarra
+            FROM producto
+            WHERE codigoBarra = ?
+        `;
+
+        const parametros = [codigoBarra];
+
+        // En una actualización,
+        // excluir el propio producto.
+
+        if (idExcluir) {
+
+            sql += `
+                AND idProducto <> ?
+            `;
+
+            parametros.push(idExcluir);
+
+        }
+
+        conexion.query(
+            sql,
+            parametros,
+            callback
+        );
+
+    },
+
+    // ===========================
     // INSERTAR PRODUCTO
     // Y CREAR AUTOMÁTICAMENTE
     // SU REGISTRO EN INVENTARIO

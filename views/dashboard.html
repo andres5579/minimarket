@@ -11,6 +11,9 @@
 
     <link rel="stylesheet" href="/css/estilos.css">
 
+    <!-- Librería Chart.js para crear la gráfica -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 </head>
 
 <body>
@@ -107,6 +110,7 @@
 
             </a>
 
+
             <a class="card" href="/clientes" id="menuClientesCard">
 
                 <h1>👥</h1>
@@ -116,6 +120,7 @@
                 <h2 id="totalClientes">0</h2>
 
             </a>
+
 
             <a class="card" href="/empleados" id="menuEmpleadosCard">
 
@@ -127,6 +132,7 @@
 
             </a>
 
+
             <a class="card" href="/inventario" id="menuInventarioCard">
 
                 <h1>📋</h1>
@@ -137,6 +143,7 @@
 
             </a>
 
+
             <a class="card" href="/ventas" id="menuVentasCard">
 
                 <h1>🧾</h1>
@@ -146,6 +153,7 @@
                 <h2 id="totalVentas">0</h2>
 
             </a>
+
 
             <a class="card" href="/detalleventa" id="menuDetalleVentaCard">
 
@@ -158,6 +166,79 @@
             </a>
 
         </div>
+
+        <div class="dashboard-mejoras">
+
+            <section class="resumen-ventas">
+
+                <h2>Resumen de ventas</h2>
+
+                <div class="resumen-datos">
+
+                    <div>
+                        <span>Total vendido</span>
+                        <strong id="totalVendido">$0</strong>
+                    </div>
+
+                    <div>
+                        <span>Ventas de hoy</span>
+                        <strong id="ventasHoy">0</strong>
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <section class="stock-bajo">
+
+                <h2>⚠️ Productos con stock bajo</h2>
+
+                <div id="productosStockBajo">
+                    <p>Cargando...</p>
+                </div>
+
+            </section>
+
+
+            <section class="mas-vendidos">
+
+                <h2>🏆 Productos más vendidos</h2>
+
+                <div id="productosMasVendidos">
+                    <p>Cargando...</p>
+                </div>
+
+            </section>
+
+
+            <section class="ultimas-ventas">
+
+                <h2>🧾 Últimas ventas</h2>
+
+                <div id="ultimasVentas">
+                    <p>Cargando...</p>
+                </div>
+
+            </section>
+
+        </div>
+
+        <!-- ==========================================
+            GRÁFICA DE VENTAS
+        ========================================== -->
+
+        <section class="grafica-ventas">
+
+            <h2>📊 Ventas de los últimos 7 días</h2>
+
+            <div class="grafica-contenedor">
+
+                <canvas id="graficaVentas"></canvas>
+
+            </div>
+
+        </section>
 
     </main>
 

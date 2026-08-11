@@ -289,7 +289,35 @@ class Venta {
 
             let totalCalculado = 0;
 
+            // ==========================================
+            // Agrupar productos repetidos
+            // ==========================================
+
+            const productosAgrupados = {};
+
             for (const detalle of datos.detalles) {
+
+                const idProducto = Number(detalle.idProducto);
+                const cantidad = Number(detalle.cantidad);
+
+                if (!productosAgrupados[idProducto]) {
+
+                    productosAgrupados[idProducto] = {
+                        idProducto,
+                        cantidad: 0
+                    };
+
+                }
+
+                productosAgrupados[idProducto].cantidad += cantidad;
+
+            }
+
+            // ==========================================
+            // Verificar productos y stock
+            // ==========================================
+
+            for (const detalle of Object.values(productosAgrupados)) {
 
                 // ==========================================
                 // Consultar producto y bloquear registro

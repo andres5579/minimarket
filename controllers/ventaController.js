@@ -228,6 +228,67 @@ exports.guardar = async (req, res) => {
 
         console.error("Error al registrar venta:", error);
 
+        // ===========================
+        // CLIENTE INEXISTENTE
+        // ===========================
+
+        if (
+            error.code === "ER_NO_REFERENCED_ROW_2" &&
+            error.message.includes("idCliente")
+        ) {
+
+            return res.status(404).json({
+
+                exito: false,
+
+                mensaje: "El cliente indicado no existe."
+
+            });
+
+        }
+
+        // ===========================
+        // EMPLEADO INEXISTENTE
+        // ===========================
+
+        if (
+            error.code === "ER_NO_REFERENCED_ROW_2" &&
+            error.message.includes("idEmpleado")
+        ) {
+
+            return res.status(404).json({
+
+                exito: false,
+
+                mensaje: "El empleado indicado no existe."
+
+            });
+
+        }
+
+        // ===========================
+        // PRODUCTO INEXISTENTE
+        // ===========================
+
+        if (
+            error.code === "ER_NO_REFERENCED_ROW_2" &&
+            error.message.includes("idProducto")
+        ) {
+
+            return res.status(404).json({
+
+                exito: false,
+
+                mensaje: "El producto indicado no existe."
+
+            });
+
+        }
+
+        // ===========================
+        // ERROR GENERAL
+        // ===========================
+
         return res.status(400).json({
 
             exito: false,

@@ -2,67 +2,171 @@ const conexion = require("../config/database");
 
 const Cliente = {
 
-    obtenerTodos(callback){
+    // ==========================
+    // LISTAR CLIENTES
+    // ==========================
+
+    obtenerTodos(callback) {
 
         conexion.query(
-            "SELECT * FROM cliente",
+            `
+            SELECT
+                idCliente,
+                nombre,
+                telefono,
+                correo,
+                puntosAcumulados
+            FROM cliente
+            ORDER BY idCliente ASC
+            `,
             callback
         );
 
     },
 
-    obtenerPorId(id,callback){
+    // ==========================
+    // BUSCAR CLIENTE POR ID
+    // ==========================
+
+    obtenerPorId(id, callback) {
 
         conexion.query(
-            "SELECT * FROM cliente WHERE idCliente=?",
+            `
+            SELECT
+                idCliente,
+                nombre,
+                telefono,
+                correo,
+                puntosAcumulados
+            FROM cliente
+            WHERE idCliente = ?
+            `,
             [id],
             callback
         );
 
     },
 
-    insertar(datos,callback){
+    // ==========================
+    // BUSCAR CORREO DUPLICADO
+    // ==========================
 
-        const sql=`
-            INSERT INTO cliente
-            (nombre,telefono,puntosAcumulados)
-            VALUES(?,?,?)
+    buscarPorCorreo(correo, idExcluir, callback) {
+
+        let sql = `
+            SELECT
+                idCliente,
+                correo
+            FROM cliente
+            WHERE correo = ?
         `;
 
-        conexion.query(sql,[
-            datos.nombre,
-            datos.telefono,
-            0
-        ],callback);
+        const parametros = [correo];
+
+        // En una actualización excluimos
+        // al propio cliente.
+
+        if (idExcluir) {
+
+            sql += `
+                AND idCliente <> ?
+            `;
+
+            parametros.push(idExcluir);
+
+        }
+
+        conexion.query(
+            sql,
+            parametros,
+            callback
+        );
 
     },
 
-    actualizar(id,datos,callback){
+    // ==========================
+    // INSERTAR CLIENTE
+    // ==========================
 
-        const sql=`
+    insertar(datos, callback) {
+
+        const sql = `
+            INSERT INTO cliente
+            (
+                nombre,
+                telefono,
+                correo,
+                puntosAcumulados
+            )
+            VALUES (?, ?, ?, ?)
+        `;
+
+        conexion.query(
+
+            sql,
+
+            [
+                datos.nombre,
+                datos.telefono,
+                datos.correo,
+                0
+            ],
+
+            callback
+
+        );
+
+    },
+
+    // ==========================
+    // ACTUALIZAR CLIENTE
+    // ==========================
+
+    actualizar(id, datos, callback) {
+
+        const sql = `
             UPDATE cliente
             SET
-                nombre=?,
-                telefono=?,
-                puntosAcumulados=?
-            WHERE idCliente=?
+                nombre = ?,
+                telefono = ?,
+                correo = ?
+            WHERE idCliente = ?
         `;
 
-        conexion.query(sql,[
-            datos.nombre,
-            datos.telefono,
-            datos.puntosAcumulados,
-            id
-        ],callback);
+        conexion.query(
+
+            sql,
+
+            [
+                datos.nombre,
+                datos.telefono,
+                datos.correo,
+                id
+            ],
+
+            callback
+
+        );
 
     },
 
-    eliminar(id,callback){
+    // ==========================
+    // ELIMINAR CLIENTE
+    // ==========================
+
+    eliminar(id, callback) {
 
         conexion.query(
-            "DELETE FROM cliente WHERE idCliente=?",
+
+            `
+            DELETE FROM cliente
+            WHERE idCliente = ?
+            `,
+
             [id],
+
             callback
+
         );
 
     }
