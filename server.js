@@ -17,7 +17,7 @@ app.use(cors());
 app.use(express.json());
 
 app.use(session({
-    secret: "minimarket",
+    secret: process.env.SESSION_SECRET || "minimarket",
     resave: false,
     saveUninitialized: false
 }));
@@ -134,16 +134,14 @@ app.get(
 // =========================
 // Servidor
 // =========================
-const PUERTO = 3000;
+const PUERTO = process.env.PORT || 3000;
 
 // Solo inicia el servidor cuando
 // server.js se ejecuta directamente
 if (require.main === module) {
 
     app.listen(PUERTO, () => {
-
-        console.log(`Servidor iniciado en http://localhost:${PUERTO}`);
-
+        console.log(`Servidor iniciado en el puerto ${PUERTO}`);
     });
 
 }
